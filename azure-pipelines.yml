@@ -5,16 +5,14 @@ pool:
   vmImage: "ubuntu-latest"
 
 steps:
-  # 1. IMPORTANTE (não mexe nisso)
   - checkout: self
     fetchDepth: 0
 
-  # 2. PREPARA SONAR
   - task: SonarCloudPrepare@3
     inputs:
       SonarCloud: "sonarqube"
       organization: "eq09"
-      scannerMode: "CLI"
+      scannerMode: "cli"
       configMode: "manual"
       cliProjectKey: "eq09_equipe-9"
       cliProjectName: "equipe 9"
@@ -22,14 +20,7 @@ steps:
       extraProperties: |
         sonar.branch.name=main
 
-  # 3. BUILD (ajusta pro teu projeto)
   - script: echo "build rodando..."
     displayName: "Build"
 
-  # 4. ANALISA
   - task: SonarCloudAnalyze@3
-
-  # 5. ENVIA RESULTADO
-  - task: SonarCloudPublish@3
-    inputs:
-      pollingTimeoutSec: "300"
