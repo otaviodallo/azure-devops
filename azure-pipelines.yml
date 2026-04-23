@@ -1,33 +1,28 @@
-# Pipeline mínima: instalar dependências, rodar testes e publicar cobertura (Cobertura).
-# Crie a variável de pipeline ou use o pool default da sua org.
-
 trigger:
   - main
-  - master
+
+pr:
+  - main
 
 pool:
-  vmImage: "ubuntu-latest"
-
-variables:
-  nodeVersion: "20.x"
+  vmImage: ubuntu-latest
 
 steps:
   - task: NodeTool@0
     inputs:
-      versionSpec: $(nodeVersion)
+      versionSpec: "20.x"
     displayName: "Instalar Node.js"
 
-  - script: |
-      npm ci
-    displayName: "npm ci"
+  - script: npm ci
+    displayName: "Instalar dependências"
 
-  - script: |
-      npm run test:coverage
-    displayName: "Testes (Jest + cobertura)"
+  - script: npm run test
+    displayName: "Executar testes automatizados"
+    continueOnError: true
 
-  - task: PublishCodeCoverageResults@2
+  - task: PublishTestResults@2
+    displayName: "Publicar resultado dos testes"
     inputs:
-      codeCoverageTool: "Cobertura"
-      summaryFileLocation: "$(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml"
-    displayName: "Publicar cobertura"
-    condition: succeededOrFailed()
+      testResultsFormat: "JUnit"
+      testResultsFiles: "test-results/junit.xml"
+      failTaskOnFailedTests: true

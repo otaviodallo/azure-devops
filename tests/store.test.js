@@ -37,8 +37,8 @@ describe("store", () => {
     expect(updateItem("nope", { name: "Z" })).toBeNull();
   });
 
-  /** Falha proposital — remova ou corrija ao validar o pipeline. */
+  /** Falha proposital — remova ou corrija após validar o pipeline (aba Tests). */
   it("falha proposital (demo pipeline)", () => {
-    expect(true).toBe(false);
+    expect(1).toBe(2);
   });
 });
