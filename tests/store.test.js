@@ -36,4 +36,9 @@ describe("store", () => {
   it("update em id inexistente retorna null", () => {
     expect(updateItem("nope", { name: "Z" })).toBeNull();
   });
+
+  /** Falha proposital — remova ou corrija ao validar o pipeline. */
+  it("falha proposital (demo pipeline)", () => {
+    expect(true).toBe(false);
+  });
 });
