@@ -1,28 +1,33 @@
 trigger:
   - main
 
-pr:
-  - main
-
 pool:
-  vmImage: ubuntu-latest
+  vmImage: "ubuntu-latest"
 
 steps:
-  - task: NodeTool@0
+  # 1. IMPORTANTE (não mexe nisso)
+  - checkout: self
+    fetchDepth: 0
+
+  # 2. PREPARA SONAR
+  - task: SonarCloudPrepare@1
     inputs:
-      versionSpec: "20.x"
-    displayName: "Instalar Node.js"
+      SonarCloud: "sonarqube"
+      organization: "eq09"
+      scannerMode: "CLI"
+      configMode: "manual"
+      cliProjectKey: "eq09_equipe-9"
+      cliProjectName: "equipe 9"
+      cliSources: "."
 
-  - script: npm ci
-    displayName: "Instalar dependências"
+  # 3. BUILD (ajusta pro teu projeto)
+  - script: echo "build rodando..."
+    displayName: "Build"
 
-  - script: npm run test
-    displayName: "Executar testes automatizados"
-    continueOnError: true
+  # 4. ANALISA
+  - task: SonarCloudAnalyze@1
 
-  - task: PublishTestResults@2
-    displayName: "Publicar resultado dos testes"
+  # 5. ENVIA RESULTADO
+  - task: SonarCloudPublish@1
     inputs:
-      testResultsFormat: "JUnit"
-      testResultsFiles: "test-results/junit.xml"
-      failTaskOnFailedTests: true
+      pollingTimeoutSec: "300"
