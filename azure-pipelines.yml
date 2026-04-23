@@ -14,7 +14,7 @@ steps:
       organization: "eq09"
       scannerMode: "cli"
       configMode: "manual"
-      cliProjectKey: "eq09_equipe-9"
+      cliProjectKey: "eq09"
       cliProjectName: "equipe 9"
       cliSources: "."
       extraProperties: |
