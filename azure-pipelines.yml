@@ -25,9 +25,9 @@ steps:
     displayName: "Build"
 
   # 4. ANALISA
-  - task: SonarCloudAnalyze@1
+  - task: SonarCloudAnalyze@3
 
   # 5. ENVIA RESULTADO
-  - task: SonarCloudPublish@1
+  - task: SonarCloudPublish@3
     inputs:
       pollingTimeoutSec: "300"
