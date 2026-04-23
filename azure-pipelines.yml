@@ -17,8 +17,6 @@ steps:
       cliProjectKey: "eq09_equipe-9"
       cliProjectName: "equipe 9"
       cliSources: "."
-      extraProperties: |
-        sonar.branch.name=main
 
   - script: echo "build rodando..."
     displayName: "Build"
