@@ -15,10 +15,10 @@ steps:
       scannerMode: "cli"
       configMode: "manual"
       cliProjectKey: "eq09"
-      cliProjectName: "equipe 9"
+      cliProjectName: "eq09"
       cliSources: "."
       extraProperties: |
-        sonar.branch.name=main
+        sonar.branch.name=master
 
   - script: echo "build rodando..."
     displayName: "Build"
